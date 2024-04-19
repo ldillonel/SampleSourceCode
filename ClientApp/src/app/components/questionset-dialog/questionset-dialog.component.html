@@ -1,0 +1,62 @@
+<h2 mat-dialog-title>Add QuestionSet</h2>
+
+<mat-dialog-content [formGroup]="angForm">
+  <div class="full-width">
+    <div class="form-group">
+      <mat-form-field class="full-width">
+        <mat-label>QuestionSet Title</mat-label>
+        <input matInput formControlName="questionSetName" #questionSetName placeholder="" value="">
+      </mat-form-field>
+    </div>
+    <div *ngIf="angForm.controls['questionSetName'].invalid && (angForm.controls['questionSetName'].dirty || angForm.controls['questionSetName'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm.controls['questionSetName'].errors.required">
+        QuestionSet Title Required.
+      </div>
+    </div>
+  </div>  <div class="full-width">
+    <div class="form-group">
+      <mat-form-field class="full-width">
+        <mat-label>Introduction</mat-label>
+        <input matInput formControlName="introduction" #introduction placeholder="" value="">
+      </mat-form-field>
+    </div>
+    <div *ngIf="angForm.controls['introduction'].invalid && (angForm.controls['introduction'].dirty || angForm.controls['introduction'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm.controls['introduction'].errors.required">
+        Introduction Required.
+      </div>
+    </div>
+  </div>
+  <div class="full-width">
+    <div class="form-group">
+      <mat-form-field class="full-width">
+        <mat-label>Version Number</mat-label>
+        <input matInput formControlName="versionNumber" #versionNumber placeholder="Ex. 1.0" value="">
+      </mat-form-field>
+    </div>
+    <div *ngIf="angForm.controls['versionNumber'].invalid && (angForm.controls['versionNumber'].dirty || angForm.controls['versionNumber'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm.controls['versionNumber'].errors.required">
+        VersionNumber Required.
+      </div>
+    </div>
+  </div>
+  <div class="full-width">
+    <div class="form-group flex-row">
+      <div>
+        <mat-label for="fileSource">Import QuestionSet</mat-label>
+      </div>
+      <div>
+        <input class="mat-stroked-button" type="file" id="fileSource" (change)="fileSelected($event)" />
+      </div>
+    </div>
+    <div *ngIf="angForm.controls['fileSource'].invalid && (angForm.controls['fileSource'].dirty || angForm.controls['fileSource'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm.controls['fileSource'].errors.required">
+        FileSource Required.
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions class="button-right">
+  <button mat-raised-button class="btn btn-secondary button-left" (click)="close()">Close</button>
+  <button mat-raised-button class="btn btn-primary button-right" (click)="save()">Save</button>
+</mat-dialog-actions>

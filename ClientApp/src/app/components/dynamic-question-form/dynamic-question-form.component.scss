@@ -1,0 +1,42 @@
+.survey .mat-radio-button {
+  display: flex;
+  flex-direction: column;
+}
+
+::ng-deep .full-width {
+  margin-bottom: 25px !important;
+}
+
+::ng-deep .likert {
+  display: table;
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 25%;
+}
+
+::ng-deep .likert > div {
+  display: table-cell;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  width: 25%;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+::ng-deep .likert > div > .mat-label {
+  display: block;
+  background-color: #ebebeb;
+  font-size: 12pt;
+  border-bottom: .0833333em solid #c3c3c3;
+  padding: 1em;
+  text-align: center;
+}
+
+::ng-deep .likert > div > .mat-radio-button {
+  width: 100%;
+  margin-left: 47%;
+  margin-top: 2.5px;
+}
+
+

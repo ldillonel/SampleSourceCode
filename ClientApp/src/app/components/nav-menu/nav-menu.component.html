@@ -1,0 +1,37 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+    <div class="container">
+      <div>
+        <img src="assets/us_army_logo.png" height="50">
+        <a class="navbar-brand" [routerLink]="['/']">SurveyTool</a>
+      </div>
+      <nav class="fill">
+        <ul *ngIf="currentUser" class="navbar-nav flex-grow">
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/surveys']">Surveys</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/questionsets']">QuestionSets</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/feedback']">Feedback</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <button mat-icon-button matTooltip="Change Password" (click)="changePassword()"><i class="fas fa-key"></i></button>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <button mat-icon-button matTooltip="Register User" (click)="registerUser()"><i class="fas fa-user-plus"></i></button>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <button mat-icon-button matTooltip="Logout User: {{currentUser.userName}}" (click)="logout()"><i class="fas fa-sign-out-alt"></i></button>
+          </li>
+        </ul>
+        <ul *ngIf="!currentUser" class="navbar-nav flex-grow">
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <button mat-raised-button [routerLink]="['/login']">Login</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </nav>
+</header>

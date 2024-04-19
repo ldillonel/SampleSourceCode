@@ -1,0 +1,70 @@
+<div *ngIf="question" [formGroup]="formGroup">
+  <div [ngSwitch]="question.controlType">
+
+  <!--File Upload-->
+    <mat-form-field class="form-control-lg" *ngSwitchCase="'upload'">
+    <input matInput [formControlName]="question.key" [id]="question.key" [type]="question.type"
+           [readonly]="question.readOnly" (change)="fileSelected($event)">
+  </mat-form-field>
+
+    <!--Single Select-->
+    <mat-form-field class="form-control-lg" *ngSwitchCase="'singleselect'">
+      <mat-select [formControlName]="question.key" [id]="question.key">
+        <mat-option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!--Multi Select-->
+    <mat-form-field class="form-control-lg" *ngSwitchCase="'multiselect'">
+      <mat-select [formControlName]="question.key" multiple required [id]="question.key">
+        <mat-option class="form-group form-inline" *ngFor="let opt of question.options" [value]="opt.key">
+          {{opt.value}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!--Radio Group-->
+    <div class="mat-form-field form-control-lg" *ngSwitchCase="'radio'">
+      <mat-radio-group class="survey" [formControlName]="question.key" required [id]="question.key">
+        <mat-radio-button *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <!--Text Area-->
+    <mat-form-field class="form-control-lg" *ngSwitchCase="'textarea'" appearance="fill" style="width:400px">
+      <textarea matInput [formControlName]="question.key" require [id]="question.key"></textarea>
+    </mat-form-field>
+
+    <!--Likert Scale-->
+    <div class="mat-form-field form-control-lg" *ngSwitchCase="'scale'">
+      <mat-radio-group class="likert" [formControlName]="question.key" required [id]="question.key"> 
+        <div class="likert" *ngFor="let opt of question.options">
+          <div>
+            <mat-label>{{opt.value}}</mat-label>
+            <mat-radio-button [value]="opt.key"></mat-radio-button>
+          </div>
+        </div>
+      </mat-radio-group>
+    </div>
+
+    <!--Rating -->
+    <div class="mat-form-field form-control-lg" *ngSwitchCase="'rating'">
+      <input type="hidden" [formControlName]="question.key" [value]="rating" [id]="question.key" />
+      <button mat-icon-button color="accent"
+              *ngFor="let opt of question.options;index as i" [id]="'star_'+i"
+              (click)="onClick(i+1)" [matTooltip]="i+1" matTooltipPosition="above">
+        <mat-icon>
+          {{showIcon(i)}}
+        </mat-icon>
+      </button>
+    </div>
+
+  <!--Simple Text-->
+    <mat-form-field class="form-control-lg" *ngSwitchDefault>
+      <input matInput [formControlName]="question.key" [id]="question.key" [type]="question.type"
+             [readonly]="question.readOnly" [attr.disabled]="question.key === 'id'">
+    </mat-form-field>
+
+    <!--<div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>-->
+  </div>
+  </div>

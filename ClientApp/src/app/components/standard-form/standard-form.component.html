@@ -1,0 +1,25 @@
+<div class="stepContent full-width">
+  <form [formGroup]="formGroup">
+    <div *ngFor="let question of questions; let i = index" class="form-row">
+      <mat-card class="full-width">
+        <mat-card-title class="h6">
+          <span *ngIf="enableNumbering">{{ i + 1 }}. {{question.label}}</span>
+        </mat-card-title>
+        <mat-card-content class="d-flex flex">
+          <app-dynamic-question-form [question]="question" [formGroup]="formGroup" class="full-width"></app-dynamic-question-form>
+        </mat-card-content>
+        <mat-card-footer *ngIf="question.required">
+          <div *ngIf="formGroup.controls[''+ question.key + ''].invalid && (formGroup.controls[''+ question.key + ''].dirty || formGroup.controls[''+ question.key + ''].touched)" class="alert alert-danger">
+            <div *ngIf="formGroup.controls[''+ question.key + ''].errors.required">
+              Question {{i + 1}} Required.
+            </div>
+          </div>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </form>
+
+  <div *ngIf="payLoad" class="form-row">
+    <strong>Saved the following values</strong><br>{{payLoad}}
+  </div>
+</div>

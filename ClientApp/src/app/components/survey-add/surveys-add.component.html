@@ -1,0 +1,134 @@
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="angForm" novalidate>
+      <mat-horizontal-stepper>
+        <mat-step label="Describe Survey" id="surveyTab">
+          <div class="form-group">
+            <mat-form-field class="full-width">
+              <mat-label>Survey Title</mat-label>
+              <input matInput formControlName="description" #description placeholder="" value="">
+            </mat-form-field>
+          </div>
+          <div *ngIf="angForm.controls['description'].invalid && (angForm.controls['description'].dirty || angForm.controls['description'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['description'].errors.required">
+              Survey Description Required.
+            </div>
+          </div>
+          <div class="form-group">
+            <mat-form-field class="full-width">
+              <mat-label>Access Code</mat-label>
+              <input matInput formControlName="surveyAccessCode" #surveyAccessCode placeholder="Note: Users will enter this code to access survey" value="" oninput="this.value = this.value.toLowerCase()" pattern="^[a-zA-Z0-9]{1,10}">
+            </mat-form-field>
+          </div>
+          <div *ngIf="angForm.controls['surveyAccessCode'].invalid && (angForm.controls['surveyAccessCode'].dirty || angForm.controls['surveyAccessCode'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['surveyAccessCode'].errors.required">
+              Access Code Required.
+            </div>
+            <div *ngIf="angForm.controls['surveyAccessCode'].errors.duplicate">
+              Access Code Not Unique.
+            </div>
+            10 or less letters/numbers only (no special characters)
+          </div>
+          <div class="form-group">
+            <mat-form-field>
+              <mat-label>Survey Type</mat-label>
+              <mat-select formControlName="surveyTypeId" id="surveyTypeId">
+                <mat-option *ngFor="let type of surveyTypes" [value]="type.id">
+                  {{type.surveyTypeName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div *ngIf="angForm.controls['surveyTypeId'].invalid && (angForm.controls['surveyTypeId'].dirty || angForm.controls['surveyTypeId'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['surveyTypeId'].errors.required">
+              Survey Type Required.
+            </div>
+          </div>
+          <div class="form-group">
+            <mat-form-field>
+              <mat-label>Start date</mat-label>
+              <input matInput [matDatepicker]="startPicker" formControlName="startDateTime" id="startDateTime"/>
+              <mat-datepicker-toggle matSuffix [for]="startPicker" id="startDateToggle"></mat-datepicker-toggle>
+              <mat-datepicker #startPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div *ngIf="angForm.controls['startDateTime'].invalid && (angForm.controls['startDateTime'].dirty || angForm.controls['startDateTime'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['startDateTime'].errors.required">
+              Start Date Required.
+            </div>
+          </div>
+          <div class="form-group">
+            <mat-form-field>
+              <mat-label>End date</mat-label>
+              <input matInput [matDatepicker]="endPicker" formControlName="endDateTime" id="endDateTime">
+              <mat-datepicker-toggle matSuffix [for]="endPicker" id="endDateToggle"></mat-datepicker-toggle>
+              <mat-datepicker #endPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div *ngIf="angForm.controls['endDateTime'].invalid && (angForm.controls['endDateTime'].dirty || angForm.controls['endDateTime'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['endDateTime'].errors.required">
+              End Date Required.
+            </div>
+          </div>
+          <div>
+            <button mat-raised-button class="button-right" type="button" matStepperNext>Next</button>
+          </div>
+        </mat-step>
+        <mat-step label="Add QuestionSet(s)" id="questionTab">
+          <mat-selection-list #selectedQuestionSets (selectionChange)="onQuestionSetChanged(selectedQuestionSets.selectedOptions.selected)">
+            <mat-list-option *ngFor="let qs of questionSets;" [value]="qs">
+              {{qs.questionSetName}}: {{qs.versionNumber}}
+            </mat-list-option>
+          </mat-selection-list>
+          <!--<label class="col-md-4" for="fileSource">Load Question Set</label>-->
+          <button mat-raised-button class="full-width" (click)="openDialog()" id="loadQuestionSets">Load QuestionSets</button>
+          <br>
+          <div>
+            <button mat-raised-button class="button-left" type="button" matStepperPrevious>Previous</button>
+            <button mat-raised-button class="button-right" type="button" matStepperNext>Next</button>
+          </div>
+        </mat-step>
+        <mat-step label="Review & Submit" id="reviewTab">
+          <div>
+            <table>
+              <tr>
+                <td><label><strong>Survey Title:</strong></label></td>
+                <td><label>{{angForm.controls['description'].value}}</label></td>
+              </tr>
+              <tr>
+                <td><label><strong>Access Code:</strong></label></td>
+                <td><label>{{angForm.controls['surveyAccessCode'].value}}</label></td>
+              </tr>
+              <tr>
+                <td><label><strong>Survey Type:</strong></label></td>
+                <td><label>{{angForm.controls['surveyTypeId'].value}}</label></td>
+              </tr>
+              <tr>
+                <td><label><strong>Start Date:</strong></label></td>
+                <td><label>{{angForm.controls['startDateTime'].value}}</label></td>
+              </tr>
+              <tr>
+                <td><label><strong>End Date:</strong></label></td>
+                <td><label>{{angForm.controls['endDateTime'].value}}</label></td>
+              </tr>
+              <tr>
+                <td><label><strong>Question Sets:</strong></label></td>
+                <td>
+                  <label *ngFor="let qs of selectedOptions">
+                    <span>{{qs.questionSetName}}({{qs.versionNumber}});</span>
+                  </label>
+                </td>
+              </tr>
+            </table>
+            <button mat-raised-button type="submit" class="btn btn-primary button-right" (click)="submit()">
+              Create Survey
+            </button>
+            <div>
+              <button mat-raised-button class="button-left" type="button" matStepperPrevious>Previous</button>
+            </div>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </form>
+  </div>
+</div>

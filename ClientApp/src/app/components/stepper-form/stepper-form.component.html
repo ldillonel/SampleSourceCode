@@ -1,0 +1,14 @@
+<div>
+  <mat-horizontal-stepper>
+    <div *ngFor="let step of steps; let index = index;let first = first; let last = last;">
+      <mat-step label="{{step.label}}">
+        <app-standard-form [parentFormGroup]="feedbackForm" [questions]="step.questions" [enableNumbering]="true"></app-standard-form>
+        <div>
+          <button *ngIf="!first" matStepperPrevious class="mat-stroked-button btn-secondary left-button" type="button">Previous</button>
+          <button *ngIf="!last" matStepperNext class="mat-stroked-button btn-secondary right-button" type="button">Next</button>
+          <button class="mat-stroked-button btn-primary right-button" type="submit" [disabled]="!isFormValid()">Submit</button>
+        </div>
+      </mat-step>
+    </div>
+  </mat-horizontal-stepper>
+</div>

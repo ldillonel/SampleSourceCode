@@ -1,0 +1,48 @@
+
+<section class="after-loop">
+  <div class="container">
+    <!-- Admin User -->
+    <div class="column" *ngIf="currentUser">
+      <div class="col-lg-4 col-md-8 mb-5 mb-lg-0 mx-auto">
+        <a [routerLink]="['/surveys-add']" class="after-loop-item card border-0 card-templates shadow-lg">
+          <div class="card-body d-flex align-items-end flex-column text-right">
+            <h4>New Survey</h4>
+            <p class="w-75">Contains QuestionSets</p>
+            <i class="fas fa-folder-open"></i>
+          </div>
+        </a>
+      </div>
+      <div class="col-lg-4 col-md-8 mb-5 mb-lg-0 mx-auto">
+        <a [routerLink]="['/questionsets-add']" class="after-loop-item card border-0 card-snippets shadow-lg">
+          <div class="card-body d-flex align-items-end flex-column text-right">
+            <h4>New QuestionSet</h4>
+            <p class="w-75">Contains Questions</p>
+            <i class="fas fa-file"></i>
+          </div>
+        </a>
+      </div>
+    </div>
+    <!-- Non-Admin User -->
+    <div class="column">
+      <div class="col-lg-4 col-md-8 mx-auto">
+        <a class="card border-0 card-guides shadow-lg">
+          <div class="card-body d-flex align-items-start flex-column">
+            <h4>Take Survey</h4>
+            <div class="flex-row">
+              <mat-form-field>
+                <div>
+                  <mat-label>Access Code</mat-label>
+                  <input matInput #surveyAccessCode id="accessCode" placeholder="" value="" [(ngModel)]="accessCode" (keyup.enter)="submit()" oninput="this.value = this.value.toLowerCase()">
+                </div>
+              </mat-form-field>
+              <button mat-raised-button class="button-right" (click)="submit()" id="goToSurvey">
+                Go to survey
+              </button>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+

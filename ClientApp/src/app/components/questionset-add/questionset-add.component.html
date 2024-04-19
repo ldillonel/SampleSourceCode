@@ -1,0 +1,76 @@
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="angForm" novalidate>
+      <div class="form-group">
+        <mat-form-field class="full-width">
+          <mat-label>QuestionSet Title</mat-label>
+          <input matInput formControlName="questionSetName" #questionSetName placeholder="" value="">
+        </mat-form-field>
+      </div>
+      <div *ngIf="angForm.controls['questionSetName'].invalid && (angForm.controls['questionSetName'].dirty || angForm.controls['questionSetName'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['questionSetName'].errors.required">
+          Title Required.
+        </div>
+      </div>
+      <div class="form-group">
+        <mat-form-field class="full-width">
+          <mat-label>Introduction</mat-label>
+          <input matInput formControlName="introduction" #introduction placeholder="" value="">
+        </mat-form-field>
+      </div>
+      <div *ngIf="angForm.controls['introduction'].invalid && (angForm.controls['introduction'].dirty || angForm.controls['introduction'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['introduction'].errors.required">
+          Introduction Required.
+        </div>
+      </div>
+      <div class="form-group">
+        <mat-form-field class="full-width">
+          <mat-label>Version Number</mat-label>
+          <input matInput formControlName="versionNumber" #versionNumber placeholder="Ex. 1.0" value="">
+        </mat-form-field>
+      </div>
+      <div *ngIf="angForm.controls['versionNumber'].invalid && (angForm.controls['versionNumber'].dirty || angForm.controls['versionNumber'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['versionNumber'].errors.required">
+          Version Number Required.
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-group flex-row">
+          <div>
+            <mat-label for="fileSource">Import QuestionSet</mat-label>
+          </div>
+          <div>
+            <input class="mat-stroked-button full-width" type="file" id="fileSource" (change)="fileSelected($event)" />
+          </div>
+        </div>
+      </div>
+      <div *ngIf="angForm.controls['fileSource'].invalid && (angForm.controls['fileSource'].dirty || angForm.controls['fileSource'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['fileSource'].errors.required">
+          Import file source Required.
+        </div>
+      </div>
+      <!--<div class="form-group">
+        <mat-form-field>
+          <mat-label>Attach to Survey</mat-label>
+          <mat-select formControlName="surveyId" id="surveyId">
+            <mat-option *ngFor="let s of surveys" [value]="s.id">
+              {{s.surveyName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div *ngIf="angForm.controls['surveyId'].invalid && (angForm.controls['surveyId'].dirty || angForm.controls['surveyId'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['surveyId'].errors.required">
+          Survey Required.
+        </div>
+      </div>-->
+      <div class="form-group">
+        <button mat-raised-button type="submit" class="btn btn-primary" (click)="submit()">
+          Create QuestionSet
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+                <!--[disabled]="angForm.pristine || angForm.invalid">-->
